@@ -22,23 +22,47 @@ const FALLBACK: Stats = {
   avgProcessingHours: 24,
 };
 
+/** Gabungkan respons API di atas FALLBACK + validasi angka.
+ *  Menjamin TIDAK PERNAH ada field undefined yang ter-render. */
+function sanitizeStats(input: unknown): Stats {
+  const raw = (typeof input === "object" && input !== null ? input : {}) as Record<string, unknown>;
+  const num = (v: unknown, def: number): number =>
+    typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : def;
+  return {
+    clients: num(raw.clients, FALLBACK.clients),
+    permitsProcessed: num(raw.permitsProcessed, FALLBACK.permitsProcessed),
+    provinces: num(raw.provinces, FALLBACK.provinces),
+    regenciesCities: num(raw.regenciesCities, FALLBACK.regenciesCities),
+    satisfaction: num(raw.satisfaction, FALLBACK.satisfaction),
+    avgProcessingHours: num(raw.avgProcessingHours, FALLBACK.avgProcessingHours),
+  };
+}
+
 function formatNumber(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1).replace(".0", "")}rb+`;
   return `${n}`;
 }
 
 export function StatsBar() {
-  const [stats, setStats] = useState<Stats | null>(null);
+  const [stats, setStats] = useState<Stats>(FALLBACK);
   const { t } = useLanguage();
 
   useEffect(() => {
+    let alive = true;
     fetch("/api/stats")
-      .then((r) => r.json())
-      .then((json) => json.success && setStats(json.data))
-      .catch(() => setStats(FALLBACK));
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((json) => {
+        if (alive && json?.success) setStats(sanitizeStats(json.data));
+      })
+      .catch(() => {
+        if (alive) setStats(FALLBACK);
+      });
+    return () => {
+      alive = false;
+    };
   }, []);
 
-  const s = stats ?? FALLBACK;
+  const s = stats;
 
   const items = [
     { icon: Users, label: t("statClients"), value: formatNumber(s.clients) },

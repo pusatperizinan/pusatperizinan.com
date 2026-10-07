@@ -616,3 +616,22 @@ Stage Summary:
 - SEMUA audit 0 temuan: 0 duplikat title/meta/slug, 0 thin, 0 stale, 0 schema, 0 similarity >0.9, 0 sitemap collision — gerbang kualitas tetap sempurna di skala 9k+
 - Jaringan internal-linking dua arah: 110 base ↔ biaya/syarat/matriks industri; kategori KBLI ↔ kode KBLI ↔ layanan; perbandingan ↔ layanan
 - File baru: src/lib/seo-pages/{types,industries,biaya,syarat,industry-matrix,industry-pages,index}.ts, src/lib/comparisons-generated.ts, src/components/seo/landing-renderer.tsx, src/app/{biaya,syarat,industri}/**; dimodifikasi: comparisons.ts, kbli-catalog.ts, kbli/[...slug]/page.tsx, sitemap.ts, seo-audit.ts, layanan/[...slug]/page.tsx, README.md
+
+---
+Task ID: 26
+Agent: Z.ai Code (main)
+Task: Fix bug "undefined% Kepuasan Klien" & "undefined jam Rata-rata Proses" di StatsBar
+
+Work Log:
+- Diagnosa: user melaporkan 2 dari 6 metrik trust tampil "undefined" (Kepuasan Klien, Rata-rata Proses)
+- Root cause: src/app/api/stats/route.ts blok `catch` mengembalikan BASELINE TANPA field satisfaction & avgProcessingHours — saat query SQLite gagal sesaat (lock/cold-start), client merender "undefined"
+- Fix Layer 1 (API): BASELINE kini lengkap (satisfaction: 98, avgProcessingHours: 24); tiap count db.lead/licenseCheck/consultation dibungkus safeCount() agar satu model gagal tidak menjatuhkan respons; tambah export dynamic="force-dynamic" + revalidate=0 + Cache-Control no-store
+- Fix Layer 2 (Client stats-bar.tsx): tambah sanitizeStats() — respons API di-merge di atas FALLBACK dan setiap field divalidasi Number.isFinite, menjamin mustahil ada "undefined" ter-render; handle r.ok; cleanup useEffect (alive flag)
+- Verifikasi: lint 0 error; curl /api/stats → 6 field lengkap; agent-browser: stats bar tampil "98% Kepuasan Klien" & "24 jam Rata-rata Proses"
+- Uji ketahanan: mock network /api/stats dengan payload parsial (tanpa satisfaction) → UI TETAP tampil 98%/24 jam, ada_undefined=false
+- Screenshot bukti: stats-bar-proof.png; console bersih tanpa error
+
+Stage Summary:
+- Bug trust metrics undefined FIXED permanen (2 lapis pertahanan: API lengkap + client sanitizer)
+- File berubah: src/app/api/stats/route.ts, src/components/landing/stats-bar.tsx
+- Statistik lain aman: statHours terverifikasi ada di 32 bahasa
