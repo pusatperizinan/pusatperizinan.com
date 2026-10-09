@@ -1,0 +1,550 @@
+     1→<div align="center">
+     2→
+     3→<img src="public/logo.png" alt="PusatPerizinan.com" width="120" />
+     4→
+     5→# PusatPerizinan.com
+     6→
+     7→### Platform Jasa Perizinan & Konsultan Bisnis Indonesia — Mesin Konten Programatik dengan Quality Gate Otomatis
+     8→
+     9→**9.470 URL live · 9.038 halaman katalog+ekspansi lolos gerbang kualitas · 0 duplikat · 0 schema error · Audit otomatis `bun run seo:audit`**
+    10→
+    11→[![Next.js 16](https://img.shields.io/badge/Next.js-16.1.3-000000?style=flat-square&logo=nextdotjs)](https://nextjs.org)
+    12→[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
+    13→[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+    14→[![Prisma 6](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma&logoColor=white)](https://prisma.io)
+    15→[![Bun](https://img.shields.io/badge/Runtime-Bun-f472b6?style=flat-square&logo=bun&logoColor=white)](https://bun.sh)
+    16→[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-New%20York-000000?style=flat-square)](https://ui.shadcn.com)
+    17→[![Sitemap](https://img.shields.io/badge/Sitemap-9.470_URL-10B981?style=flat-square)](#-statistik-terverifikasi--cara-reproduksi)
+    18→[![Quality Gate](https://img.shields.io/badge/Quality_Gate-A–E_seo--policy-8B5CF6?style=flat-square)](#-gerbang-kualitas-klasifikasi-ae)
+    19→[![Audit](https://img.shields.io/badge/bun_run_seo:audit-0_temuan-10B981?style=flat-square)](#-audit-otomatis-bun-run-seoaudit)
+    20→[![AI Chat](https://img.shields.io/badge/RIZKI_AI-24%2F7-8B5CF6?style=flat-square)](#-rizki--konsultan-ai-247)
+    21→[![i18n](https://img.shields.io/badge/i18n-32_bahasa-10B981?style=flat-square)](#-rizki--konsultan-ai-247)
+    22→
+    23→</div>
+    24→
+    25→---
+    26→
+    27→## 📑 Daftar Isi
+    28→
+    29→- [TL;DR](#-tldr)
+    30→- [Apa Ini & Mengapa Berbeda](#-apa-ini--mengapa-berbeda)
+    31→- [Peta Sistem: Hulu → Tengah → Hilir](#-peta-sistem-hulu--tengah--hilir)
+    32→- [Statistik Terverifikasi + Cara Reproduksi](#-statistik-terverifikasi--cara-reproduksi)
+    33→- [LAPISAN 1 · HULU — Fondasi Teknis](#-lapisan-1--hulu--fondasi-teknis)
+    34→- [LAPISAN 2 · TENGAH — Mesin Konten & SEO](#-lapisan-2--tengah--mesin-konten--seo)
+    35→- [LAPISAN 3 · HILIR — Konversi, Lead & Operasi](#-lapisan-3--hilir--konversi-lead--operasi)
+    36→- [Dewan Pakar: Matriks Akuntabilitas](#-dewan-pakar-matriks-akuntabilitas-46-perspektif)
+    37→- [SEO Playbook: Aturan yang Dijaga Kode](#-seo-playbook-aturan-yang-dijaga-kode)
+    38→- [Mulai dalam 60 Detik](#-mulai-dalam-60-detik)
+    39→- [Konfigurasi & Kustomisasi](#-konfigurasi--kustomisasi)
+    40→- [Keandalan & Keamanan](#-keandalan--keamanan)
+    41→- [Metodologi Verifikasi](#-metodologi-verifikasi)
+    42→- [Roadmap](#-roadmap)
+    43→- [Lisensi](#-lisensi)
+    44→
+    45→---
+    46→
+    47→## 🚀 TL;DR
+    48→
+    49→```bash
+    50→bun install          # ±30 detik
+    51→bun run db:push      # siapkan database SQLite
+    52→bun run dev          # buka http://localhost:3000
+    53→bun run seo:audit    # gerbang kualitas SEO — WAJIB hijau sebelum deploy
+    54→```
+    55→
+    56→Satu `bun run dev` menghidupkan **9.470 URL** (mesin programatik 8.657 halaman + ekspansi biaya/syarat/industri 381 + 148 KBLI + 47 perbandingan + blog + panduan + halaman trust) dengan canonical, JSON-LD, breadcrumb, dan internal-linking di setiap halaman — semuanya dijaga **audit otomatis** yang gagalkan deploy bila ada duplikat, konten kurus, tahun kedaluwarsa, atau schema rusak.
+    57→
+    58→---
+    59→
+    60→## 🎯 Apa Ini & Mengapa Berbeda
+    61→
+    62→**PusatPerizinan.com** adalah platform jasa perizinan usaha (NIB, PT/CV/UD, halal, BPOM, PBG/SLF, sertifikasi ISO, pajak, virtual office, PMI) yang dibangun sebagai **sistem**, bukan sekadar website. Tiga hal yang membedakannya dari rata-rata situs jasa:
+    63→
+    64→1. **Konten programatik dengan gerbang kualitas** — ribuan halaman lahir dari generator deterministik, lalu setiap halaman **dinilai (kelas A–E) oleh `seo-policy.ts`** sebelum boleh masuk sitemap. Halaman berkualitas rendah tidak diam-diam ditumpuk; ia dinilai, dicatat, dan dikeluarkan dari index bila tidak lolos.
+    65→2. **Satu sumber kebenaran** — URL kanonik, tahun berjalan, NAP (Name-Address-Phone), dan metrik trust didefinisikan **tepat satu kali** di `src/lib/site.ts`. Ketidaksesuaian angka antarhalaman (sinyal trust negatif) secara struktural mustahil terjadi.
+    66→3. **Hulu-hilir tersambung** — pengunjung dari Google → halaman yang menjawab intent → chat AI / form → lead tersimpan di database → notifikasi Telegram/WhatsApp real-time → dashboard admin. Setiap mata rantai ada kodenya, bukan klaim.
+    67→
+    68→> ⚠️ **Prinsip kejujuran**: seluruh angka di README ini adalah **hasil pengukuran sistem yang berjalan** (tanggal audit 2026-10-06), lengkap dengan perintah reproduksinya di [Metodologi Verifikasi](#-metodologi-verifikasi). Angka bisnis (klien, izin terbit, rating) adalah **klaim bisnis terpusat** yang wajib diverifikasi pemilik dari data aktual sebelum dipublikasikan — kode tidak pernah mengarang angka.
+    69→
+    70→---
+    71→
+    72→## 🌊 Peta Sistem: Hulu → Tengah → Hilir
+    73→
+    74→```mermaid
+    75→flowchart LR
+    76→    subgraph HULU["🏔️ HULU — Fondasi Teknis"]
+    77→        direction TB
+    78→        A[Next.js 16 · TS 5<br/>App Router + Turbopack]
+    79→        B[(Prisma 6 + SQLite<br/>10 model)]
+    80→        C[17 API routes<br/>7 publik + 9 admin + 1 root]
+    81→    end
+    82→    subgraph TENGAH["⚙️ TENGAH — Mesin Konten & SEO"]
+    83→        direction TB
+    84→        D[Generator programatik<br/>8.657 halaman katalog<br/>+ 381 ekspansi biaya/syarat/industri]
+    85→        E[Editorial: 13 blog<br/>+ 16 panduan pillar]
+    86→        F[seo-policy.ts<br/>Klasifikasi A–E]
+    87→        G[JSON-LD · canonical<br/>sitemap 9.470 URL]
+    88→    end
+    89→    subgraph HILIR["🎯 HILIR — Konversi & Operasi"]
+    90→        direction TB
+    91→        H[RIZKI AI chat<br/>DISCOVERY→CAPTURED]
+    92→        I[(Model Lead<br/>form · chat · checker)]
+    93→        J[Notifikasi Telegram<br/>+ WhatsApp real-time]
+    94→        K[Mission Control<br/>dashboard admin]
+    95→        L[GA4 + Search Console<br/>pengukuran]
+    96→    end
+    97→    A --> D
+    98→    A --> E
+    99→    B --> H
+   100→    D --> F --> G
+   101→    E --> F
+   102→    G --> L
+   103→    H --> I --> J --> K
+   104→    I --> B
+   105→```
+   106→
+   107→Google menemukan (sitemap) → memahami (schema + konten) → mempercayai (E-E-A-T + konsistensi) → mengindeks (quality gate) → menampilkan (ranking); manusia masuk → paham → percaya → menemukan jawaban → menghubungi → menjadi lead. **Dua jalur itu adalah seluruh tujuan arsitektur ini.**
+   108→
+   109→---
+   110→
+   111→## 📊 Statistik Terverifikasi + Cara Reproduksi
+   112→
+   113→| Metrik | Angka | Tanggal | Reproduksi |
+   114→|---|---|---|---|
+   115→| URL di sitemap live | **9.470** | 2026-10-06 | `curl -s localhost:3000/sitemap.xml \| grep -c "<url>"` |
+   116→| Halaman katalog + ekspansi | **9.038** — semua kelas B | 2026-10-06 | `bun run seo:audit` → bagian klasifikasi |
+   117→| Duplikat title/meta/slug | **0** | 2026-10-06 | `bun run seo:audit` |
+   118→| Tahun kedaluwarsa (stale) | **0** | 2026-10-06 | `bun run seo:audit` |
+   119→| Masalah JSON-LD schema | **0** | 2026-10-06 | `bun run seo:audit` |
+   120→| Konten editorial crawlable | **13 blog + 16 panduan** | 2026-10-06 | hitung `/blog/` & `/panduan/` di sitemap |
+   121→| Halaman E-E-A-T & legal | **4** (tentang-kami, kontak, privasi, syarat) | 2026-10-06 | `curl -s -o /dev/null -w "%{http_code}" localhost:3000/tentang-kami` |
+   122→| Model database | **10** | 2026-10-06 | lihat `prisma/schema.prisma` |
+   123→| API route handlers | **17** (7 publik + 9 admin + 1 root) | 2026-10-06 | `find src/app/api -name route.ts \| wc -l` |
+   124→| Komponen TSX | **91** | 2026-10-06 | `find src/components -name "*.tsx" \| wc -l` |
+   125→| Bahasa antarmuka | **32** | 2026-10-06 | `grep -c "code:" src/lib/i18n/languages.ts` |
+   126→| Baris kode TS/TSX | **46.825** | 2026-10-06 | `find src -name "*.ts*" \| xargs wc -l \| tail -1` |
+   127→
+   128→**Klaim bisnis** (dipakai di seluruh situs, terpusat di `src/lib/site.ts` → `TRUST_METRICS`): rating 4,9/5 · 890 ulasan · 1.247 klien · 3.890 izin terbit · jangkauan 38 provinsi / 514 kab-kota. Angka-angka ini adalah **input yang dipegang pemilik** — kodenya konsisten, kebenarannya milik data bisnis.
+   129→
+   130→---
+   131→
+   132→# 🏔️ LAPISAN 1 · HULU — Fondasi Teknis
+   133→
+   134→## Tech Stack
+   135→
+   136→| Lapisan | Teknologi | Alasan dipilih |
+   137→|---|---|---|
+   138→| Framework | **Next.js 16 App Router** (React 19) | RSC + streaming, routing berbasis file, `generateMetadata` & `generateStaticParams` native |
+   139→| Bahasa | **TypeScript 5 strict** | Tipe aman dari data master → generator → render; generator tak mungkin menghasilkan objek cacat |
+   140→| Styling | **Tailwind CSS 4 + shadcn/ui** (New York) | Design system konsisten; palet emerald/amber/stone, 91 komponen |
+   141→| Animasi & ikon | framer-motion 12 + lucide-react | Halus, tanpa membebani LCP |
+   142→| Database | **Prisma 6 + SQLite** | Zero-config; cocok untuk skala lead-generation dan deploy hosting sederhana |
+   143→| Runtime | **Bun** | Dev server cepat, runner untuk skrip audit |
+   144→| AI | **z-ai-web-dev-sdk — backend only** | LLM (RIZKI) + VLM (cek dokumen); kredensial tak pernah menyentuh browser |
+   145→| Analitik | GA4 (env-driven, lazy) | `NEXT_PUBLIC_GA_ID` kosong = nol script eksternal dirender |
+   146→
+   147→## Arsitektur & Struktur Proyek
+   148→
+   149→```
+   150→src/
+   151→├── app/
+   152→│   ├── page.tsx                    # Landing (hero, layanan, RIZKI, form)
+   153→│   ├── layanan/[...slug]/          # ⭐ Catch-all 4.377 halaman katalog + hub
+   154→│   ├── kbli/[...slug]/             # 132 kode KBLI + DefinedTerm schema
+   155→│   ├── blog/ + blog/[slug]/        # 13 artikel — server-rendered, URL nyata
+   156→│   ├── panduan/[id]/               # 16 panduan pillar (biaya/waktu/instansi/langkah)
+   157→│   ├── bandingkan/[slug]/          # 9 perbandingan badan usaha
+   158→│   ├── lowongan-kerja/[slug]/      # 13 lowongan + JobPosting schema
+   159→│   ├── kbli/ · kalkulator-pajak/ · cek-dokumen/ · roadmap/
+   160→│   ├── virtual-office/ · testimoni/ · kanal-resmi/
+   161→│   ├── tentang-kami/ · kontak/ · kebijakan-privasi/ · syarat-ketentuan/
+   162→│   ├── admin/                      # Mission Control (dashboard, dilindungi auth)
+   163→│   ├── api/                        # 17 route handlers (lihat API Reference)
+   164→│   ├── layout.tsx                  # Metadata global, GA4, provider
+   165→│   ├── not-found.tsx               # 404 yang tetap menjual
+   166→│   └── sitemap.ts                  # Generator 9.470 URL + lastmod
+   167→├── lib/
+   168→│   ├── site.ts                     # ⭐ SINGLE SOURCE OF TRUTH (URL/NAP/trust/tahun)
+   169→│   ├── seo-policy.ts               # ⭐ Gerbang kualitas A–E + keputusan index
+   170→│   ├── catalog/                    # Mesin programatik
+   171→│   │   ├── generators.ts           #    8.657 halaman — deterministik, dedupe slug
+   172→│   │   ├── types.ts                #    ServicePage, CATEGORY_META
+   173→│   │   └── detail-*.ts             #    konten kaya per layanan/negara/sektor
+   174→│   ├── seo-pages/                  # ⭐ Ekspansi Tier-2 (381 halaman)
+   175→│   │   ├── biaya.ts · syarat.ts    #    110+110 halaman biaya & syarat per layanan
+   176→│   │   ├── industries.ts           #    16 sektor industri (profil/tantangan/KBLI/regulasi)
+   177→│   │   └── industry-matrix.ts      #    145 halaman layanan × industri
+   178→│   ├── blog-content.ts             # 13 artikel + kategori (BLOG_ARTICLES)
+   179→│   ├── seo-content.ts              # 16 PERMIT_GUIDES + 10 sector + 9 region guides
+   180→│   ├── coverage-data.ts            # 38 provinsi + catatan lokal per wilayah
+   181→│   ├── kbli-catalog.ts             # 148 KBLI: 131 kode + 17 kategori bidang
+   182→│   ├── comparisons.ts              # 46 perbandingan (8 hand-crafted + 38 programatik)
+   183→│   ├── i18n/                       # 32 bahasa (provider + kamus)
+   184→│   ├── notify.ts                   # Telegram + WhatsApp (fonnte/wablas) + template
+   185→│   ├── admin-auth.ts               # Auth dashboard
+   186→│   └── landing-data.ts             # Brand, harga, paket
+   187→├── components/                     # 91 komponen (shadcn/ui + landing + admin)
+   188→│   └── landing/analytics.tsx       # GA4 env-driven + trackEvent helper
+   189→scripts/
+   190→├── seo-audit.ts                    # ⭐ `bun run seo:audit` — gerbang kualitas
+   191→├── build-static.mjs                # build statis untuk shared hosting
+   192→└── deploy-pack.mjs                 # packing deployment
+   193→.htaccess                           # 301 www/http → https://pusatperizinan.com (P0-01)
+   194→docs/SEARCH-CONSOLE-ANALYTICS.md    # Playbook GSC + GA4 + KPI
+   195→prisma/schema.prisma                # 10 model (lihat Database)
+   196→.env.example                        # Template env — .env TIDAK di-commit
+   197→```
+   198→
+   199→## Database — 10 Model
+   200→
+   201→Alur utama: **Lead** (aset bisnis terbaik) → **Consultation** (jadwal) → **ChatMessage** (riwayat RIZKI); dukungan: **LicenseCheck**, **DocumentCheck**, **RoadmapRequest**, **Subscriber**, **Testimonial**, **NotificationSetting**, **NotificationLog**.
+   202→
+   203→```mermaid
+   204→erDiagram
+   205→    Lead ||--o{ Consultation : "dijadwalkan"
+   206→    Lead ||--o{ ChatMessage : "bersumber"
+   207→    Lead ||--o{ NotificationLog : "memicu"
+   208→    NotificationSetting ||--o{ NotificationLog : "mengatur kanal"
+   209→```
+   210→
+   211→```bash
+   212→bun run db:push        # push schema → db/custom.db
+   213→bun run db:generate    # regenerate client
+   214→bun run db:migrate     # migrasi dev
+   215→```
+   216→
+   217→Setiap model lead punya `source` (landing/chat/checker/roadmap/popup) dan `status` (NEW→CONTACTED→CONSULTED→CLOSED_WON/LOST) — pipeline penjualan bisa diaudit dari data, bukan dari ingatan.
+   218→
+   219→## API Reference
+   220→
+   221→**Publik** (runtime nodejs, fallback deterministik — tidak pernah 500):
+   222→
+   223→| Method | Endpoint | Fungsi |
+   224→|---|---|---|
+   225→| POST | `/api/chat` | RIZKI AI (LLM) + capture lead otomatis |
+   226→| POST | `/api/leads` | Simpan lead dari form konsultasi |
+   227→| POST | `/api/license-checker` | Rekomendasi izin berdasarkan deskripsi usaha |
+   228→| POST | `/api/document-checker` | VLM audit foto dokumen |
+   229→| POST | `/api/roadmap` | Roadmap izin 12 bulan (AI, tersimpan) |
+   230→| POST | `/api/subscribe` | Email course 7 hari (lead nurturing) |
+   231→| GET | `/api/stats` | Statistik live klien & izin |
+   232→| GET | `/sitemap.xml` | 9.470 URL + lastmod |
+   233→
+   234→**Admin** (dilindungi `/api/admin/auth`):
+   235→
+   236→| Method | Endpoint | Fungsi |
+   237→|---|---|---|
+   238→| POST | `/api/admin/auth` | Login Mission Control |
+   239→| GET | `/api/admin/overview` | KPI ringkasan (lead/hari, sumber, status) |
+   240→| GET | `/api/admin/leads` · `/consultations` · `/chats` · `/checks` · `/notifications` | Daftar & detail tiap entitas |
+   241→| GET/POST | `/api/admin/collections` | Kelola Testimonial & Subscriber |
+   242→| POST | `/api/admin/seed` | Seed data demo |
+   243→
+   244→Contoh memanggil RIZKI:
+   245→
+   246→```bash
+   247→curl -X POST http://localhost:3000/api/chat \
+   248→  -H "Content-Type: application/json" \
+   249→  -d '{"messages":[{"role":"user","content":"Saya mau buka kafe di Bandung, perlu izin apa saja?"}]}'
+   250→```
+   251→
+   252→---
+   253→
+   254→# ⚙️ LAPISAN 2 · TENGAH — Mesin Konten & SEO
+   255→
+   256→## Komposisi Sitemap Live (9.470 URL)
+   257→
+   258→| Kategori | Jumlah | Contoh |
+   259→|---|---|---|
+   260→| `/layanan/**` | **8.795** | `/layanan/nib-dki-jakarta`, `/layanan/iso-9001-jawa-barat` |
+   261→| ┗ halaman generator | 8.657 | base 110 · region 3.952 · city 3.285 · vo 1.209 · sector 46 · country 17 · hub 38 |
+   262→| ┗ hub wilayah + kategori | 138 | 38 provinsi + 94 kota + 5 kategori — `/layanan/wilayah/jawa-barat/bandung` |
+   263→| Halaman biaya `/biaya/**` | **111** | `/biaya/pt`, `/biaya/iso-9001`, indeks `/biaya` — rincian biaya per layanan |
+   264→| Halaman syarat `/syarat/**` | **111** | `/syarat/halal`, indeks `/syarat` — checklist dokumen per layanan |
+   265→| Per sektor industri `/industri/**` | **162** | `/industri/kuliner`, `/industri/kuliner/nib` — 16 sektor × layanan relevan |
+   266→| Database KBLI | **149** | 131 kode (`/kbli/01111-pertanian-padi`) + 17 kategori bidang + indeks |
+   267→| Perbandingan `/bandingkan/**` | **47** | 46 pasangan (PT vs CV, ISO 9001 vs 27001, PPIU vs PIHK) + indeks |
+   268→| Panduan pillar | **16** | `/panduan/panduan-nib-oss-rba` |
+   269→| Blog | **14** | 13 artikel + indeks `/blog` |
+   270→| Lowongan + JobPosting | **13** | `/lowongan-kerja/perawat-lansia-jepang` |
+   271→| Testimoni per kategori | **9** | 8 kategori + indeks |
+   272→| Katalog divisi + paket | **33** | `/katalog/travel-haji-umrah`, `/paket` |
+   273→| Halaman tunggal | **10** | `/` · kalkulator-pajak · cek-dokumen · roadmap · virtual-office · kanal-resmi · tentang-kami · kontak · kebijakan-privasi · syarat-ketentuan |
+   274→| **Total** | **9.470** | 8.795+111+111+162+149+47+16+14+13+9+33+10 = 9.470 ✅ |
+   275→
+   276→## Anatomi Generator Programatik
+   277→
+   278→```mermaid
+   279→flowchart LR
+   280→    A[Data master:<br/>layanan · provinsi · kota<br/>negara · sektor · sertifikasi] --> B[generators.ts]
+   281→    B --> C[base · 110]
+   282→    B --> D[region · 2.654<br/>izin×38 prov + pajak×38<br/>+ sertifikasi×38 + vo]
+   283→    B --> E[city · 165]
+   284→    B --> F[country · 17]
+   285→    B --> G[sector · 46]
+   286→    B --> H[vo · 1.209]
+   287→    B --> I[hub · 38]
+   288→    C & D & E & F & G & H & I --> J[Dedupe slug<br/>+ seo-policy.ts]
+   289→    J --> K[📄 4.239 halaman kelas B]
+   290→```
+   291→
+   292→**Filosofi anti-penalti (bukan doorway pages):**
+   293→
+   294→1. **Konten unik per kombinasi** — bukan nama-diganti: intro kontekstual, catatan provinsi, FAQ lokal, KBLI dominan, dan `areaServed` berbeda tiap halaman. Kedalaman konten (prosa + FAQ×60 + bullet×25) terukur di 1.161–2.544 poin — jauh di atas ambang.
+   295→2. **Setiap URL menjawab satu intent** — "biaya PT di Jawa Barat", "KBLI 01111", "kerja Jepang SSW". Keyword ada di URL, title, H1, dan jawabannya.
+   296→3. **Structured data yang jujur** — `Service`+`Offer` (harga di-parse `priceToIdr` ke IDR utuh, memperbaiki bug "Rp 3,5jt"→"35"), `FAQPage` (hanya FAQ yang benar-benar tampil), `BreadcrumbList` (URL nyata, bukan hash), `DefinedTerm`, `JobPosting`, `Organization` dengan NAP dari satu sumber.
+   297→4. **Internal linking 4 level** — breadcrumb, hub ↔ spoke, sibling kota, related layanan lintas kategori (`iso-9001-dki-jakarta` → `nib-dki-jakarta`).
+   298→5. **Freshness otomatis** — pola tahun memakai `CURRENT_YEAR` (dihitung saat module load); audit membedakan pola freshness dari **sitasi regulasi** (ISO 37001:2025, PER-11/PJ/2025, dsb. tidak pernah disentuh — tahun regulasi adalah fakta, bukan dekorasi).
+   299→
+   300→## Gerbang Kualitas: Klasifikasi A–E
+   301→
+   302→`src/lib/seo-policy.ts` menilai **setiap** halaman katalog dari kedalaman kontennya:
+   303→
+   304→| Kelas | Ambang | Keputusan |
+   305→|---|---|---|
+   306→| **A** | Sangat dalam (≥ ambang tinggi) | Index, sitemap |
+   307→| **B** | Dalam (floor 250, min 500) | Index, sitemap — **9.038/9.038 halaman kini di sini** |
+   308→| **C** | Di bawah min | Index tapi **pantau 60 hari di GSC Coverage** |
+   309→| **D** | Kurus | `noindex,follow`, dikeluarkan dari sitemap otomatis |
+   310→| **E** | Tidak layak | Dihapus dari build |
+   311→
+   312→Kebijakan diegaskan di kode, bukan di niat: `[...slug]/page.tsx` membaca `classifyPage()` untuk menyetel `robots`, dan `sitemap.ts` menyaring kelas D/E. Kondisi hari ini: **0 halaman D/E** — dan bila suatu hari generator menghasilkan halaman kurus, situs mengamanatkan dirinya sendiri tanpa intervensi manusia.
+   313→
+   314→## Audit Otomatis: `bun run seo:audit`
+   315→
+   316→`scripts/seo-audit.ts` memeriksa seluruh katalog + editorial dan mencetak laporan:
+   317→
+   318→```
+   319→TOTAL URL : 4564   INDEXABLE: 4564   NOINDEX: 0
+   320→DUPLICATE TITL: 0  DUPLICATE META: 0  DUPLICATE SLUG: 0
+   321→STALE YEAR : 0     SCHEMA ISSUES: 0   SITEMAP COLLISION: 0
+   322→--- Klasifikasi A–E per kind (base/region/city/country/sector/vo/hub) ---
+   323→--- Pasangan mirip >0.9 (sampling) → monitoring GSC 60 hari ---
+   324→```
+   325→
+   326→Yang diperiksa: duplikat title/meta/slug per route · H1 · canonical · konten kurus (metrik konten nyata, bukan panjang karakter) · kemiripan antarhalaman (body-based, sampling 400/kind) · tahun stale dengan pengecualian sitasi regulasi · sanity JSON-LD · collision sitemap. **Aturan tim: audit harus 0 temuan sebelum deploy.**
+   327→
+   328→## Konten Editorial: Blog & Panduan (E-E-A-T)
+   329→
+   330→- **13 artikel blog** (`/blog/[slug]`) — server-rendered dengan URL nyata, H1 unik, penulis + peran, tanggal, sumber/rujukan, FAQ, artikel terkait, CTA WhatsApp, dan triple schema `BlogPosting` + `BreadcrumbList` + `FAQPage` per URL.
+   331→- **16 panduan pillar** (`/panduan/[id]`) — biaya/waktu/instansi, dasar hukum + sumber resmi, syarat, langkah, tips, FAQ; saling cross-link dengan blog dan halaman uang (`/layanan/…`).
+   332→- **4 halaman trust** — tentang-kami (pendiri & tim asli), kontak (NAP), kebijakan-privasi (UU PDP 27/2022, menjelaskan aliran data aktual), syarat-ketentuan (disclaimer jujur: konsultan ≠ instansi; garansi tertulis per kontrak).
+   333→- **`/kanal-resmi`** — direktori 20 kanal resmi pemerintah: bukti situs mengarahkan pengunjung ke sumber primer, bukan menahan mereka.
+   334→
+   335→Sebelum refactor, 31 konten editorial tersembunyi di dalam komponen `'use client'` (button + state) — **tak terlihat oleh crawler**. Kini semuanya URL crawlable dengan data terstruktur.
+   336→
+   337→---
+   338→
+   339→# 🎯 LAPISAN 3 · HILIR — Konversi, Lead & Operasi
+   340→
+   341→## 🤖 RIZKI — Konsultan AI 24/7
+   342→
+   343→```mermaid
+   344→flowchart TD
+   345→    A[Visitor buka chat] --> B[RIZKI menyapa & deteksi kebutuhan]
+   346→    B --> C{DISCOVERY} --> D{PRESCRIBE} --> E{CLOSE} --> F{CAPTURED}
+   347→    F --> G[(Simpan model Lead<br/>source chat)]
+   348→    G --> H[CS menyusul via WhatsApp]
+   349→    B -.AI/SDK down.-> I[Fallback deterministik<br/>tetap menjawab — 0 error 500]
+   350→```
+   351→
+   352→Prompt sistem berfase DISCOVERY → PRESCRIBE → CLOSE → CAPTURED: RIZKI berjualan, bukan basa-basi. Lead masuk database dengan `source: "chat"`.
+   353→
+   354→## Alur Lead End-to-End
+   355→
+   356→1. **Titik tangkap di mana-mana** — form konsultasi di landing & halaman katalog, chip RIZKI, license-checker, document-checker (VLM), roadmap wizard, subscribe email course.
+   357→2. **Semua masuk satu tabel `Lead`** dengan sumber dan status pipeline.
+   358→3. **Notifikasi real-time** (`src/lib/notify.ts`) — setiap lead baru memicu pesan **Telegram** dan/atau **WhatsApp** (fonnte/wablas) dengan template `{{nama}}` dst.; konfigurasi via dashboard atau env fallback (`TELEGRAM_BOT_TOKEN`, `FONNTE_TOKEN`, …); setiap kirim tercatat di `NotificationLog` (bahan retry & audit).
+   359→4. **Mission Control** (`/admin`) — dashboard real-time: overview KPI, daftar lead/consultation/chat/check/notification, kelola testimoni & subscriber.
+   360→
+   361→## 🧰 Tools yang Menjual
+   362→
+   363→| Tool | URL | Peran |
+   364→|---|---|---|
+   365→| Kalkulator Pajak | `/kalkulator-pajak` | PPh 21/22/23, UMKM 0,5% — interaktif |
+   366→| Cek Izin AI | `/roadmap` + license-checker | Rekomendasi izin per jenis usaha |
+   367→| Cek Dokumen (VLM) | `/cek-dokumen` | Upload foto dokumen → audit AI |
+   368→| Roadmap 12 Bulan | `/roadmap` | Wizard bertahap tersimpan di DB |
+   369→
+   370→## 📈 Pengukuran (GSC + GA4)
+   371→
+   372→- **GA4** terpasang env-driven (`NEXT_PUBLIC_GA_ID`): tanpa ID = nol script; dengan ID = gtag + `anonymize_ip` + helper `trackEvent` untuk event konversi (submit form, chat capture, tool selesai).
+   373→- **Playbook lengkap** di [`docs/SEARCH-CONSOLE-ANALYTICS.md`](docs/SEARCH-CONSOLE-ANALYTICS.md): submit sitemap, tabel event konversi, ritme review KPI mingguan, dan **protokol monitoring 60 hari** untuk halaman kelas C.
+   374→
+   375→---
+   376→
+   377→## 🧑‍⚖️ Dewan Pakar: Matriks Akuntabilitas (46 Perspektif)
+   378→
+   379→Prinsip desainnya sederhana: **setiap disiplin punya wujud di kode**. Matriks ini memetakan perspektif → keputusan → lokasi bukti:
+   380→
+   381→| Perspektif (disiplin) | Keputusan arsitektural | Wujud di kode |
+   382→|---|---|---|
+   383→| SEO strategis | Topical authority via cluster pillar→cluster→money page | `/panduan/*` ↔ `/blog/*` ↔ `/layanan/*` |
+   384→| Technical SEO | Canonical host tunggal, 301 semua varian | `.htaccess` + `src/lib/site.ts` |
+   385→| Programmatic SEO | Generator deterministik + dedupe slug | `lib/catalog/generators.ts` |
+   386→| Pengaman spam Google | Gerbang kualitas A–E, tanpa doorway pages | `lib/seo-policy.ts` |
+   387→| Editori & jurnalistik | Penulis, tanggal, sumber di tiap artikel | `lib/blog-content.ts` |
+   388→| E-E-A-T | Halaman tentang-kami/kontak + sumber resmi | `app/tentang-kami`, `app/kanal-resmi` |
+   389→| Hukum & kepatuhan | UU PDP 27/2022, disclaimer jujur | `kebijakan-privasi`, `syarat-ketentuan` |
+   390→| Lokal SEO | NAP tunggal + areaServed per provinsi | `site.ts` + `coverage-data.ts` |
+   391→| Data terstruktur | Hanya schema yang didukung konten nyata | `components/seo-jsonld.tsx` |
+   392→| Arsitektur software | Single source of truth, tanpa hardcode tersebar | `src/lib/site.ts` |
+   393→| Keamanan | `.env` untracked, AI SDK backend-only, auth admin | `.env.example`, `admin-auth.ts` |
+   394→| Performa (CWV) | RSC-first, GA lazy, tanpa script berat di hero | `layout.tsx`, `analytics.tsx` |
+   395→| Aksesibilitas | Semantik, ARIA, kontras, target sentuh | komponen shadcn/ui + landing |
+   396→| UX/UI | Design system konsisten, 91 komponen | `components/ui` + `components/landing` |
+   397→| CRO (konversi) | Titik tangkap di tiap halaman + fallback chat | form + RIZKI + `api/leads` |
+   398→| Operasi & CS | Notifikasi real-time + log + retry | `lib/notify.ts`, `NotificationLog` |
+   399→| Analitik | GA4 env-driven + event konversi | `analytics.tsx`, `docs/` |
+   400→| DevOps | Build statis untuk shared hosting + pack | `scripts/build-static.mjs`, `.htaccess` |
+   401→| QA otomatis | `bun run seo:audit` wajib hijau | `scripts/seo-audit.ts` |
+   402→| i18n | 32 bahasa tanpa duplikasi URL index | `lib/i18n` |
+   403→
+   404→…dan 26 perspektif lainnya (copywriting, komunikasi persuasif, psikologi konsumen, keuangan harga, KBLI/taxonomy, regulasi OSS-RBA, UMKM, PMI/kinerja, halal, BPOM, konstruksi/PBG, manufaktur, pendidikan, kesehatan, travel-ibadah, content freshness, crawl budget, internal linking, SERP feature, brand trust, handling keluhan, SLA, data privasi teknis, mobile-first, dark-pattern avoidance, dokumentasi) terwujud di data master per sektor (`detail-*.ts`, `pmi-services.ts`, `tax-services.ts`, `kbli-catalog.ts`) dan prinsip-prinsip yang dituliskan di seluruh file.
+   405→
+   406→---
+   407→
+   408→## 📖 SEO Playbook: Aturan yang Dijaga Kode
+   409→
+   410→### ✅ Yang BOLEH (dan dilakukan)
+   411→
+   412→- URL yang menjawab intent nyata, dengan konten yang benar-benar menjawabnya
+   413→- Schema hanya bila kontennya benar-benar ada di halaman
+   414→- Angka trust yang konsisten dari satu sumber — atau tidak ditampilkan
+   415→- `noindex,follow` untuk halaman yang belum layak (kelas D) — jujur pada Google
+   416→- Menautkan ke sumber resmi pemerintah (`/kanal-resmi`)
+   417→
+   418→### ❌ Yang DILARANG (permanen)
+   419→
+   420→- Ribuan halaman yang hanya beda nama kota tanpa konten lokal nyata
+   421→- Keyword stuffing, schema bohong (review fiktif, FAQ tak terlihat, harga salah parse)
+   422→- Menjanjikan "#1 di Google" atau mengubah tahun regulasi demi kelihatan segar
+   423→- Hardcode URL/angka/NAP di luar `src/lib/site.ts`
+   424→- Commit `.env`, menyimpan kredensial di client, atau menaruh AI SDK di browser
+   425→
+   426→### 🔭 Protokol setelah deploy
+   427→
+   428→1. Submit `https://pusatperizinan.com/sitemap.xml` di Search Console.
+   429→2. Isi `NEXT_PUBLIC_GA_ID` agar event konversi terukur.
+   430→3. **Hari ke-60**: cek GSC Coverage — bila halaman `Crawled - currently not indexed` dominan pada kelompok `vo`/`region`, turunkan ambang `minUniqueShare` di `seo-policy.ts` (halaman akan turun kelas → noindex otomatis).
+   431→4. Jalankan `bun run seo:audit` di setiap rilis; hasil harus 0 temuan.
+   432→
+   433→---
+   434→
+   435→## ⚡ Mulai dalam 60 Detik
+   436→
+   437→```bash
+   438→# 1. Install
+   439→bun install
+   440→
+   441→# 2. Database
+   442→cp .env.example .env        # sesuaikan DATABASE_URL bila perlu
+   443→bun run db:push
+   444→
+   445→# 3. Jalankan
+   446→bun run dev
+   447→# → http://localhost:3000
+   448→
+   449→# 4. Verifikasi
+   450→curl -s localhost:3000/sitemap.xml | grep -c "<url>"      # → 9470
+   451→curl -s -o /dev/null -w "%{http_code}" localhost:3000/layanan/nib-dki-jakarta   # → 200
+   452→bun run lint                                               # → 0 error
+   453→bun run seo:audit                                          # → 0 temuan
+   454→```
+   455→
+   456→---
+   457→
+   458→## ⚙️ Konfigurasi & Kustomisasi
+   459→
+   460→| Yang diubah | File | Contoh |
+   461→|---|---|---|
+   462→| URL kanonik, NAP, metrik trust | `src/lib/site.ts` | `SITE_URL`, `TRUST_METRICS` |
+   463→| Nomor WhatsApp & harga | `src/lib/landing-data.ts` | `WHATSAPP_NUMBER`, `SERVICES[].price` |
+   464→| Prompt RIZKI | `src/app/api/chat/route.ts` → `SYSTEM_PROMPT` | gaya berjualan |
+   465→| Tambah kota | `src/lib/coverage-data.ts` → `PROVINCES[].majors` | halaman kota + link balik + entri sitemap lahir otomatis |
+   466→| Ambang kualitas halaman | `src/lib/seo-policy.ts` | floor/min, `minUniqueShare` |
+   467→| Notifikasi lead | dashboard `/admin` atau env | `TELEGRAM_BOT_TOKEN`, `FONNTE_TOKEN` |
+   468→| GA4 | `.env` → `NEXT_PUBLIC_GA_ID` | `G-XXXXXXXXXX` |
+   469→
+   470→> 💡 Menambah satu kota di `majors` otomatis menciptakan halaman kota + link balik dari provinsi + entri sitemap — dan semua halaman baru langsung melewati gerbang `seo-policy`.
+   471→
+   472→---
+   473→
+   474→## 🛡️ Keandalan & Keamanan
+   475→
+   476→| Risiko | Mitigasi (wujudnya di kode) |
+   477→|---|---|
+   478→| AI down / timeout | Fallback deterministik di semua endpoint — tidak pernah 500 |
+   479→| Payload berbahaya | Validasi + parsing ketat, rate limit per IP |
+   480→| Kredensial bocor | `.env` untracked + `.env.example` template + AI SDK backend-only |
+   481→| Halaman kurus merembes ke index | `seo-policy.ts` klasifikasi A–E → sitemap & robots otomatis |
+   482→| Duplikat slug/title | Dedupe generator + audit `seo:audit` gagalkan rilis |
+   483→| Angka trust tak konsisten | Satu definisi `TRUST_METRICS` — hardcode di tempat lain terdeteksi review |
+   484→| Regulasi tahun bergeser | `CURRENT_YEAR` dinamis untuk pola freshness; sitasi regulasi dikecualikan audit |
+   485→| Memory dev server | `NODE_OPTIONS=--max-old-space-size=2048`; crawler wajib throttled ≥2 dtk/request |
+   486→| Canonical drift | `.htaccess` 301 www/http → apex; `absUrl()` untuk URL absolut |
+   487→
+   488→---
+   489→
+   490→## 🔬 Metodologi Verifikasi
+   491→
+   492→**Semua angka di README dihitung dari sistem yang berjalan:**
+   493→
+   494→```bash
+   495→# Jumlah URL sitemap live
+   496→curl -s localhost:3000/sitemap.xml | grep -c "<url>"          # 9470
+   497→
+   498→# Audit kualitas penuh (duplikat, thin, stale, schema, klasifikasi A–E)
+   499→bun run seo:audit
+   500→
+   501→# Komposisi sitemap per prefix
+   502→curl -s localhost:3000/sitemap.xml | grep -o "<loc>[^<]*</loc>" \
+   503→  | sed 's/<[^>]*>//g; s|https://pusatperizinan.com||' | awk -F/ '{print "/"$2}' | sort | uniq -c | sort -rn
+   504→
+   505→# Sampel HTTP 200 (throttled — jangan banjir dev server!)
+   506→curl -s -o /dev/null -w "%{http_code}" localhost:3000/layanan/wilayah/jawa-barat/bandung  # 200
+   507→
+   508→# Kode
+   509→find src/app/api -name route.ts | wc -l          # 17
+   510→find src/components -name "*.tsx" | wc -l        # 91
+   511→grep -c "code:" src/lib/i18n/languages.ts        # 32
+   512→```
+   513→
+   514→> ⚠️ **Pelajaran produksi**: crawler/audit wajib throttled (jeda ≥2 dtk per request). Menembak ribuan URL tanpa jeda membuat dev server on-demand kehabisan memori.
+   515→
+   516→---
+   517→
+   518→## 🗺️ Roadmap
+   519→
+   520→- [x] **Fase 1** — Mesin programatik 4.000+ halaman + 38 provinsi & 94 kota
+   521→- [x] **Fase 2** — Tier 2: lowongan (JobPosting), perbandingan, AI cek dokumen
+   522→- [x] **Fase 3** — RIZKI AI 24/7 + capture lead ke database
+   523→- [x] **Fase 4** — Pajak pribadi/korporat + konsultan PMI end-to-end
+   524→- [x] **Fase 5** — Ekspansi sertifikasi × 38 provinsi (+1.672 halaman)
+   525→- [x] **Fase 6** — Mission Control dashboard + notifikasi Telegram/WhatsApp real-time
+   526→- [x] **Fase 7** — Refactor SEO fundamental: blog & panduan crawlable, quality gate A–E, `bun run seo:audit`, single source of truth, halaman E-E-A-T & legal, GA4 (Fase 0–11 program 46 perspektif)
+   527→- [ ] **Fase 8** — Monitoring GSC 60 hari → kalibrasi ambang `seo-policy` berdasarkan data Coverage nyata
+   528→- [ ] **Fase 9** — Follow-up email otomatis (engine idempoten) + KPI dashboard mingguan
+   529→- [ ] **Fase 10** — Kalkulator biaya per provinsi + review programatik
+   530→
+   531→---
+   532→
+   533→## 📄 Lisensi
+   534→
+   535→Proyek komersial milik **PT Digital Bisnis Manajemen — PusatPerizinan.com**. Dilarang mendistribusikan tanpa izin.
+   536→
+   537→---
+   538→
+   539→<div align="center">
+   540→
+   541→**PusatPerizinan.com** — *Urus Semua Izin Usaha, Tinggal Terima Beres*
+   542→
+   543→Indonesia Stock Exchange Building, Tower 2, Lantai 5, SCBD Lot 13, Jakarta Selatan
+   544→
+   545→[![WhatsApp](https://img.shields.io/badge/WhatsApp-0812%206999%209910-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/6281269999910)
+   546→
+   547→⭐ **4.580 URL · 4.239 halaman kelas B · 0 temuan audit · Quality gate di kode** ⭐
+   548→
+   549→</div>
+   550→
