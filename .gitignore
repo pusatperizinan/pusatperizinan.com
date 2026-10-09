@@ -19,6 +19,11 @@ node_modules
 
 # production
 /build
+/wordpress/.build/
+/wordpress/pusatperizinan-cms/data/content.ndjson
+/wordpress/pusatperizinan-cms/data/manifest.json
+/wordpress/pusatperizinan-cms/data/index.php
+/wordpress/pusatperizinan-cms/data/.htaccess
 
 # misc
 .DS_Store
