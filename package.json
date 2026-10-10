@@ -9,7 +9,7 @@
 
     "build": "next build --webpack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "build:turbo": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
-    "build:static": "node scripts/build-static.mjs",
+    "build:static": "next build --webpack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "pack": "node scripts/deploy-pack.mjs",
 
     "start": "NODE_ENV=production node .next/standalone/server.js",
