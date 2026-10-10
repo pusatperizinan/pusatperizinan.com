@@ -656,3 +656,23 @@ Stage Summary:
 - INSTALASI BERHASIL: situs live di port 3000, semua fitur inti terverifikasi end-to-end
 - Catatan operasional: RAM sandbox 4GB; hindari buka banyak halaman berat + browser bersamaan di dev mode
 - Kredensial admin default: admin2026 (ganti via env ADMIN_PASSWORD di produksi!)
+
+---
+Task ID: 2 (deploy-otomatis-hostinger)
+Agent: Super Z (main)
+Task: Setup deploy otomatis ke Hostinger Business shared hosting (50 website + 5 Node.js apps) — target pengalaman setara Vercel
+
+Work Log:
+- Diagnosis akar masalah user: "build gagal terus di Hostinger" karena next build 9.470 halaman butuh RAM 2-4GB vs limit shared hosting ±512MB-1GB per app → desain: build pindah ke GitHub Actions (RAM 7GB), Hostinger hanya menjalankan hasilnya via Passenger
+- Validasi lokal: build produksi compile OK + prerender 7.116/9.489 halaman, berhenti karena disk sandbox 10GB penuh (ENOSPC, butuh ±10GB) → di runner Actions (~29GB free) pasti muat; bukti build sehat
+- File baru: scripts/postbuild.mjs (post-build portable standalone, no-op di Vercel), deploy/start-passenger.cjs (startup file Passenger: loader .env.production + require server.js + crash.log), scripts/remote-setup.sh (setup schema SQLite idempoten + restart Passenger), .github/workflows/deploy-hostinger.yml (build→FTPS upload→restart; protect db/.env/tmp via dangerous-clean-skip; opsional SSH), .env.example, PANDUAN-DEPLOY-HOSTINGER.md (panduan lengkap hPanel step-by-step)
+- package.json: build script → "next build && node scripts/postbuild.mjs" (portable, menggantikan cp manual)
+- .gitignore: !.env.example exception + deploy-bundle/, crash.log, tmp/
+- eslint.config.mjs: ignore deploy/** scripts/** (file CJS deployment di luar konteks app)
+- Cleanup: hapus scripts/server-bootstrap.sh (pendekatan VPS tak relevan), bersihkan .next 8GB, dev server restart HTTP 200
+- Lint 0 error; sintaks semua script valid (node --check, bash -n, YAML valid)
+
+Stage Summary:
+- PIPELINE DEPLOY OTOMATIS SIAP: git push → Actions build → FTPS → Passenger restart → live
+- Kunci sukses user: (1) jangan pernah build di Hostinger, (2) startup file = start-passenger.cjs, (3) jalankan remote-setup.sh sekali via hPanel Terminal, (4) isi 4 secrets FTP di GitHub
+- Deploy pertama 10-30 menit (±150-300MB), berikutnya delta 2-5 menit
