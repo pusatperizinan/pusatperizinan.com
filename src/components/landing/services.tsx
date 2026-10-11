@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, ArrowRight, Flame, ChevronDown } from "lucide-react";
+import { Clock, ArrowRight, Flame, ChevronDown, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { SERVICES } from "@/lib/landing-data";
+import { PACKAGES } from "@/lib/pricing";
 import { useLanguage } from "@/lib/i18n/language-provider";
 
 const INITIAL_VISIBLE = 9;
+
+/** Layanan yang punya paket bayar-langsung → dapat tombol "Pesan Sekarang". */
+const SELLABLE = new Set(PACKAGES.map((p) => p.id));
 
 export function Services() {
   const { t } = useLanguage();
@@ -86,13 +90,24 @@ export function Services() {
                     ))}
                   </ul>
 
-                  <a
-                    href={`/layanan/${service.id}`}
-                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
-                  >
-                    Lihat detail layanan
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
+                  <div className="mt-5 space-y-2">
+                    {SELLABLE.has(service.id) && (
+                      <a
+                        href={`/checkout?paket=${service.id}`}
+                        className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:shadow-lg hover:brightness-110"
+                      >
+                        <Wallet className="h-4 w-4" />
+                        Pesan Sekarang
+                      </a>
+                    )}
+                    <a
+                      href={`/layanan/${service.id}`}
+                      className="flex w-full items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
+                    >
+                      Lihat detail layanan
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>

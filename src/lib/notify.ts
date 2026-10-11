@@ -153,6 +153,7 @@ function sumberLabel(s: string): string {
     checker: "🔍 AI Cek Izin",
     popup: "✨ Popup Website",
     konsultasi: "📅 Booking Konsultasi",
+    order: "💳 PESANAN BARU — BAYAR MASUK!",
     test: "🧪 UJI COBA",
   };
   return map[s] ?? s;
@@ -324,6 +325,99 @@ export async function notifyNewLead(lead: LeadPayload): Promise<void> {
   } catch (e) {
     // Keamanan absolut: notifikasi tidak boleh mengganggu alur lead
     console.error("[notify] notifyNewLead error:", e);
+  }
+}
+
+// ---------- NOTIFIKASI PESANAN (checkout otomatis) ----------
+export interface OrderPayload {
+  orderNo: string;
+  serviceName: string;
+  amount: number;
+  customerName: string;
+  customerPhone: string;
+  provider: string;
+  paymentMethod?: string | null;
+}
+
+/** Pesan tetap untuk pesanan baru/paid — template khusus, tidak memakai template lead. */
+function renderOrderMessage(o: OrderPayload, status: "PAID" | "PENDING"): string {
+  const rupiah = "Rp " + o.amount.toLocaleString("id-ID");
+  const waDigits = o.customerPhone.replace(/[^0-9]/g, "");
+  const judul =
+    status === "PAID"
+      ? "💰 PEMBAYARAN MASUK!"
+      : "🧾 Pesanan baru dibuat (belum bayar)";
+  const providerLabel: Record<string, string> = {
+    midtrans: "Midtrans",
+    tripay: "Tripay",
+    demo: "MODE UJI COBA",
+    manual: "Transfer manual",
+  };
+  return [
+    `${judul}`,
+    "",
+    `🧾 No: ${o.orderNo}`,
+    `📦 Layanan: ${o.serviceName}`,
+    `💵 Nilai: ${rupiah}`,
+    `👤 Nama: ${o.customerName}`,
+    `📱 WhatsApp: ${o.customerPhone}`,
+    `💳 Jalur: ${providerLabel[o.provider] || o.provider}${o.paymentMethod ? ` (${o.paymentMethod})` : ""}`,
+    `🕐 ${waktuWIB(new Date())} WIB`,
+    "",
+    status === "PAID"
+      ? "⚡️ SEGERA PROSES: hubungi klien sekarang → wa.me/" + waDigits
+      : `👉 Cek status: /admin → tab Pesanan`,
+  ].join("\n");
+}
+
+/**
+ * Fire-and-forget notifikasi pesanan (PAID / PENDING).
+ * Dipanggil dari webhook gateway, status-polling, dan demo-pay.
+ * Tidak pernah melempar error — kegagalan dicatat ke NotificationLog.
+ */
+export async function notifyOrder(o: OrderPayload, status: "PAID" | "PENDING" = "PAID"): Promise<void> {
+  try {
+    const s = await getEffectiveSettings();
+    if (!s.telegramEnabled && !s.whatsappEnabled) return;
+
+    const text = renderOrderMessage(o, status);
+    const jobs: Promise<void>[] = [];
+
+    if (s.telegramEnabled && s.telegramBotToken && s.telegramChatId) {
+      jobs.push(
+        sendTelegram(s.telegramBotToken, s.telegramChatId, text).then((r) =>
+          writeLog({
+            leadName: o.customerName,
+            leadWa: o.customerPhone,
+            source: "order",
+            channel: "telegram",
+            status: r.ok ? "sent" : "failed",
+            message: text,
+            error: r.error,
+          })
+        )
+      );
+    }
+
+    if (s.whatsappEnabled && s.whatsappApiToken && s.whatsappTarget) {
+      jobs.push(
+        sendWhatsapp(s.whatsappProvider, s.whatsappApiToken, s.whatsappTarget, text).then((r) =>
+          writeLog({
+            leadName: o.customerName,
+            leadWa: o.customerPhone,
+            source: "order",
+            channel: "whatsapp",
+            status: r.ok ? "sent" : "failed",
+            message: text,
+            error: r.error,
+          })
+        )
+      );
+    }
+
+    await Promise.allSettled(jobs);
+  } catch (e) {
+    console.error("[notify] notifyOrder error:", e);
   }
 }
 

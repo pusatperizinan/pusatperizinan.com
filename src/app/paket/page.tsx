@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BUNDLES, fmtRange, fmtIdr, waLink } from "@/lib/katalog-lengkap";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
+import { PACKAGES, fmtRupiah } from "@/lib/pricing";
 
 const PAGE_TITLE = `Paket Bundel Perizinan — GO UMRAH, GO HAJI PLUS & ${BUNDLES.length - 2} Paket Hemat Lainnya`;
 const PAGE_DESC = `${BUNDLES.length} paket bundel layanan perizinan paling populer: kombinasi pendirian PT + izin + pendampingan dengan harga lebih hemat daripada beli satuan — mulai ${fmtRange(Math.min(...BUNDLES.map((b) => b.price)), null)}.`;
@@ -123,6 +124,38 @@ export default function PaketPage() {
             Total potensi hemat seluruh paket: {fmtRange(totalHemat, null)} · Harga adalah jasa
             konsultan; biaya resmi pemerintah dihitung terpisah.
           </p>
+        </div>
+      </section>
+
+      {/* CHECKOUT INSTAN — paket harga tetap, bayar langsung */}
+      <section className="mx-auto max-w-6xl px-4 pt-14" aria-labelledby="checkout-instan">
+        <div className="rounded-2xl border-2 border-emerald-600/20 bg-emerald-50/60 p-7 md:p-9">
+          <p className="inline-block rounded-full bg-emerald-700 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+            Bayar Langsung — Tanpa Nunggu
+          </p>
+          <h2 id="checkout-instan" className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+            {PACKAGES.length} Layanan Populer Harga Tetap — Checkout Otomatis
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-stone-600">
+            Untuk layanan yang paling sering dipesan, kamu bisa langsung bayar via QRIS, Virtual
+            Account semua bank, e-wallet, atau gerai retail — dokumen diproses begitu pembayaran
+            terkonfirmasi otomatis. Tanpa admin, tanpa antre WhatsApp.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {PACKAGES.filter((p) => p.popular || p.price <= 650_000).slice(0, 8).map((p) => (
+              <Link
+                key={p.id}
+                href={`/checkout?paket=${p.id}`}
+                className="group rounded-xl border border-emerald-200 bg-white p-4 transition hover:border-emerald-500 hover:shadow-md"
+              >
+                <p className="text-sm font-bold text-stone-900 leading-snug">{p.name}</p>
+                <p className="mt-1.5 text-lg font-extrabold text-emerald-700">{fmtRupiah(p.price)}</p>
+                <p className="mt-1 text-[11px] font-semibold text-emerald-600 group-hover:underline">
+                  Pesan & bayar sekarang →
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

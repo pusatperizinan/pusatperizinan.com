@@ -723,3 +723,27 @@ Stage Summary:
 - 7 ide TERAPKAN penuh di kode (1,2,3,4,5,7,9,10), 2 ide dinyatakan roadmap dengan alasan integritas (6: data PR, 8: portal klien)
 - +6 halaman program dengan form lead per sumber → pipeline admin bisa bedakan asal lead
 - Semua harus di-push untuk deploy ke Hostinger
+
+---
+Task ID: 5 (payment-otomatis)
+Agent: Super Z (main)
+Task: Sistem Pembayaran Otomatis "Bayar Langsung" — checkout gateway lengkap atas permintaan user
+
+Work Log:
+- Schema Prisma: model Order baru (orderNo unik, amount server-side, provider, paymentRef, checkoutUrl, status, paidAt, expiresAt) + db push OK
+- src/lib/pricing.ts: 8 paket siap-jual harga tetap (konsultasi-30 99k, nib 350k, nib-ss-npwp 650k, pt-perorangan 500k, cv 1.5jt, pt 3.5jt, halal 1.2jt, bpom 2.5jt) — SATU sumber harga di server (anti manipulasi)
+- Payment engine (src/lib/payment/): config.ts resolver prioritas Midtrans→Tripay→Demo→Manual; midtrans.ts (Snap API + sha512 webhook verify + status-poll API + mapping status); tripay.ts (create + HMAC webhook verify + detail API); orders.ts transisi status idempoten (PAID terlindungi replay)
+- API: POST /api/payment/create (validasi nama/WA/email, harga dari server), GET config, GET status/[orderNo] (polling gateway fallback), webhook midtrans + tripay (signature verified, 403 bila palsu), POST demo-pay (hanya saat PAYMENT_DEMO_MODE=true DAN provider=demo)
+- UI: /checkout (pilih paket 8 kartu, form, metode Tripay radio, strip kepercayaan, ringkasan harga, noindex) + /payment/[orderNo] (polling 4 detik, animasi status, langkah setelah PAID, tombol WA, tombol simulasi bila demo)
+- notify.ts: notifyOrder() — notifikasi "PEMBAYARAN MASUK" ke Telegram/WA admin (source: order)
+- Integrasi: tombol "Pesan Sekarang" di 5 kartu layanan (SELLABLE set), CTA "Pesan & Bayar" di header desktop+mobile, section "Checkout Instan" di /paket
+- Admin: tab "Pesanan 💳" (metrik pendapatan lunas, tabel, ubah status manual, tombol WA klien, paginasi) + /api/admin/orders (guard cookie, GET/PATCH)
+- .env.example + PANDUAN-PAYMENT.md (3 jalur: Demo/Tripay/Midtrans, webhook URL, troubleshooting)
+- Verifikasi: lint bersih; API suite 8/8 lolos (config, create, validasi 400 x2, PENDING, demo-pay→PAID, webhook palsu 403); browser E2E: checkout→order INV-20261011-UG56H2→status→simulasi→"Pembayaran Berhasil!"; admin tab tampil Rp 700.000 (2 lunas); mobile 398px tanpa scroll horizontal
+- Bukti: download/verifikasi-pembayaran-sukses.png, download/verifikasi-admin-pesanan.png, download/verifikasi-checkout-mobile.png
+
+Stage Summary:
+- Situs kini BISA MENERIMA PEMBAYARAN langsung; siap prod via Tripay (mudah, perorangan) atau Midtrans (tepercaya) cukup isi .env + webhook URL + restart
+- Fallback aman: tanpa kunci gateway → transfer manual + WA; mode demo tak mungkin aktif saat kunci produksi terpasang
+- Deploy ke Hostinger: push main → Actions otomatis; remote-setup.sh akan db push (tabel Order dibuat sendiri)
+- Catatan sandbox: dev server dimatikan sistem antar-panggilan; tes dilakukan dalam satu sesi per batch

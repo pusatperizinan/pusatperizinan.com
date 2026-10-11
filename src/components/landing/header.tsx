@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, PhoneCall, Sparkles } from "lucide-react";
+import { Menu, X, PhoneCall, Sparkles, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/language-provider";
@@ -83,6 +83,17 @@ export function Header() {
               <PhoneCall className="h-4 w-4" />
               0812-6999-9910
             </a>
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="rounded-full px-4 font-semibold border-primary/40 text-primary hover:bg-primary/10"
+            >
+              <a href="/checkout">
+                <Wallet className="h-4 w-4" />
+                Pesan & Bayar
+              </a>
+            </Button>
             <Button asChild size="sm" className="rounded-full px-5 font-semibold shadow-md shadow-primary/25">
               <a href="#konsultasi">
                 <Sparkles className="h-4 w-4" />
@@ -133,7 +144,13 @@ export function Header() {
                 {item.label}
               </a>
             ))}
-            <Button asChild className="mt-3 rounded-full font-semibold">
+            <Button asChild variant="outline" className="mt-3 rounded-full font-semibold border-primary/40 text-primary">
+              <a href="/checkout" onClick={() => setOpen(false)}>
+                <Wallet className="h-4 w-4" />
+                Pesan & Bayar Langsung
+              </a>
+            </Button>
+            <Button asChild className="rounded-full font-semibold">
               <a href="#konsultasi" onClick={() => setOpen(false)}>
                 <Sparkles className="h-4 w-4" />
                 {t("ctaFree")}

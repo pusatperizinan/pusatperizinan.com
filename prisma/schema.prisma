@@ -149,6 +149,34 @@ model NotificationSetting {
   updatedAt        DateTime @updatedAt
 }
 
+// Order: pesanan langsung bayar (checkout otomatis via gateway)
+// Harga SELALU diambil dari src/lib/pricing.ts di server — anti manipulasi.
+model Order {
+  id            String    @id @default(cuid())
+  orderNo       String    @unique // INV-20261011-XXXXXX
+  serviceId     String    // id paket dari pricing.ts
+  serviceName   String
+  amount        Int       // Rupiah (server-side source of truth)
+  customerName  String
+  customerPhone String    // format 62xxx
+  customerEmail String?
+  notes         String?
+  provider      String    @default("manual") // midtrans | tripay | demo | manual
+  paymentMethod String?   // qris | briva | bcava | gopay | ...
+  paymentRef    String?   // snap token / tripay reference
+  checkoutUrl   String?   // URL halaman bayar provider
+  status        String    @default("PENDING") // PENDING | PAID | FAILED | EXPIRED | CANCELLED | CHALLENGE
+  rawPayload    String?   // JSON payload penting dari provider
+  paidAt        DateTime?
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([customerPhone])
+}
+
 // NotificationLog: riwayat pengiriman notifikasi (bahan feed real-time dashboard)
 model NotificationLog {
   id        String   @id @default(cuid())
