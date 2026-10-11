@@ -676,3 +676,25 @@ Stage Summary:
 - PIPELINE DEPLOY OTOMATIS SIAP: git push → Actions build → FTPS → Passenger restart → live
 - Kunci sukses user: (1) jangan pernah build di Hostinger, (2) startup file = start-passenger.cjs, (3) jalankan remote-setup.sh sekali via hPanel Terminal, (4) isi 4 secrets FTP di GitHub
 - Deploy pertama 10-30 menit (±150-300MB), berikutnya delta 2-5 menit
+
+---
+Task ID: 3 (seo-algoritma-terbaik)
+Agent: Super Z (main)
+Task: Maksimalkan SEO situs + lengkapi semua jasa konsultan Indonesia + 10 ide brilian dewan 46 lensa
+
+Work Log:
+- Audit SEO internal (bun run seo:audit): baseline 9.038 halaman A/B, 0 duplikat, 0 schema issue — fondasi sehat
+- Audit gap katalog vs kebutuhan konsultan Indonesia: koperasi/lkpm/alkes/pse ternyata SUDAH ada di SERVICES (32 entri); celah nyata = KPPA, BPJS, Higiene Sanitasi, Reklame
+- Tambah 7 layanan katalog (katalog-lengkap.ts): A.9 Koperasi, A.10 KPPA, H.12 AKD, H.13 Higiene Sanitasi, I.6 BPJS, W.4 Reklame, AE.4 LKPM — auto-map ke halaman via mapping.ts
+- Tambah 4 SERVICES baru (landing-data.ts): kppa, bpjs, higiene-sanitasi, reklame → otomatis memperbanyak base+provinsi+kota pages
+- Konten kaya 4 layanan di detail-licenses.ts: long, legalBasis, authority, requirements, steps, FAQ, keywords (semua riset regulasi: BKPM 3/2021, UU 24/2011, Permenkes 2/2023, UU 1/2022)
+- GEO (Generative Engine Optimization): robots.txt buka 8 crawler AI (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, dll) + Disallow /admin; buat public/llms.txt (ringkasan situs untuk ChatGPT/Perplexity)
+- RSS feed blog: src/app/feed.xml/route.ts (force-static, static-export safe) + deklarasi alternates.types di layout.tsx
+- Hasil: sitemap 9.470 → 9.694 URL (+224); base 110→114; region 3.952→4.104; city 3.285→3.345; semua kelas B, 0 duplikat
+- Verifikasi: 4 halaman baru 200 OK dengan title benar; lint bersih; homepage 200
+
+Stage Summary:
+- +224 halaman SEO kelas B otomatis; katalog kini 38 divisi-entri / 144 layanan
+- Situs kini terbuka untuk AI Search (GEO) — jalur lalu lintas baru 2026+
+- RSS + llms.txt menambah jalur penemuan konten
+- Perubahan harus di-commit & push agar ter-deploy ke Hostinger via Actions

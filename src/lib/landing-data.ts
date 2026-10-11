@@ -345,6 +345,42 @@ export const SERVICES: ServiceItem[] = [
     duration: "1 hari-8 minggu",
     features: ["Singapura, Malaysia, Dubai, US LLC, HK", "Registered address & nominee opsional", "Bank account opening support", "Kepatuhan tax residency & annual filing"],
   },
+  {
+    id: "kppa",
+    title: "Kantor Perwakilan Asing (KPPA)",
+    desc: "Hadir di Indonesia tanpa pendirian PT PMA — kantor perwakilan resmi via BKPM/OSS untuk riset pasar & koordinasi regional.",
+    icon: Globe2,
+    price: "Rp 12jt",
+    duration: "2-3 minggu",
+    features: ["Surat keputusan persetujuan BKPM", "Kartu identitas kantor perwakilan", "Panduan kewajiban pelaporan LKPM", "Jalur konversi ke PT PMA saat siap"],
+  },
+  {
+    id: "bpjs",
+    title: "BPJS Ketenagakerjaan & Kesehatan",
+    desc: "Penuhi kewajiban ketenagakerjaan perusahaan: registrasi program JHT, JKK, JKM, JP & BPJS Kesehatan untuk seluruh karyawan.",
+    icon: ShieldPlus,
+    price: "Rp 900rb",
+    duration: "3-5 hari kerja",
+    features: ["Registrasi Badan Hukum & karyawan", "Perhitungan kontribusi & klasifikasi risiko", "Daftar ulang & mutasi karyawan", "Panduan kewajiban bulanan (JAMSOSTEK 2A)"],
+  },
+  {
+    id: "higiene-sanitasi",
+    title: "Sertifikat Higiene Sanitasi",
+    desc: "Wajib bagi usaha makanan & minuman dari Dinas Kesehatan — restoran, kafe, katering, cloud kitchen, hingga kantin sekolah.",
+    icon: ClipboardCheck,
+    price: "Rp 1,5jt",
+    duration: "1-2 minggu",
+    features: ["Pemeriksaan sanitasi & higiene produksi", "Pendampingan uji lab sesuai peraturan Kemenkes", "Sertifikat resmi Dinkes setempat", "Panduan pelaporan berkala & perpanjangan"],
+  },
+  {
+    id: "reklame",
+    title: "Izin Terbit Reklame",
+    desc: "Pasang billboard, videotron, banner, atau neon box secara legal — sesuai perda & retribusi daerah setempat.",
+    icon: Lightbulb,
+    price: "Rp 2,5jt",
+    duration: "1-3 minggu",
+    features: ["Izin terbit dari Bapenda/Dispenda", "Perhitungan retribusi & lokasi legal", "Perpanjangan & perubahan materi reklame", "Penanganan reklame politis & komersial"],
+  },
 ];
 
 export const PROCESS_STEPS = [

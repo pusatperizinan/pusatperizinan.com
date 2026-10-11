@@ -79,6 +79,8 @@ export const metadata: Metadata = {
   publisher: "PT Digital Bisnis Manajemen",
   alternates: {
     canonical: "/",
+    // RSS feed blog — jalur penemuan konten tambahan (reader, agregator, GNews)
+    types: { "application/rss+xml": "/feed.xml" },
     // CATATAN AUDIT: blok hreflang ?lang=xx dihapus — ?lang= diproses client-side
     // sehingga tidak menyajikan konten berbeda per URL (berisiko sinyal duplikat).
     // hreflang hanya dikembalikan bila versi bahasa per-URL yang sesungguhnya dibuat.

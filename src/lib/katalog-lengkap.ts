@@ -481,6 +481,18 @@ export const CATEGORIES: CatalogCategory[] = [
         priceFrom: 5_400_000,
         desc: "UD lengkap: NIB + NPWP + izin usaha.",
       },
+      {
+        code: "A.9",
+        name: "Pendirian Koperasi",
+        priceFrom: 3_500_000,
+        desc: "Koperasi (KUD/KSU/koperasi simpan pinjam): badan hukum Kemenkop, RAT, pengurus.",
+      },
+      {
+        code: "A.10",
+        name: "Kantor Perwakilan Asing (KPPA)",
+        priceFrom: 12_000_000,
+        desc: "Representasi perusahaan asing di Indonesia via BKPM/OSS tanpa badan hukum — jalur validasi pasar.",
+      },
     ],
     faq: [
       {
@@ -664,6 +676,8 @@ export const CATEGORIES: CatalogCategory[] = [
       { code: "H.9", name: "IPAK", priceFrom: 13_500_000, desc: "Izin Penyalur Alat Kesehatan." },
       { code: "H.10", name: "SIA (Surat Izin Apotek)", priceFrom: 12_000_000, desc: "Izin mendirikan & menjalankan apotek." },
       { code: "H.11", name: "SIPA", priceFrom: 3_500_000, desc: "Surat Izin Praktik Apoteker." },
+      { code: "H.12", name: "Izin Edar Alat Kesehatan (AKD)", priceFrom: 15_000_000, desc: "Izin edar Kemenkes untuk alat kesehatan & alat kesehatan diagnostik in vitro (AKL)." },
+      { code: "H.13", name: "Sertifikat Higiene Sanitasi", priceFrom: 1_500_000, desc: "Wajib bagi usaha makanan/minuman dari Dinkes — restoran, katering, cloud kitchen." },
     ],
     faq: [
       {
@@ -700,6 +714,7 @@ export const CATEGORIES: CatalogCategory[] = [
       { code: "I.3", name: "KITAS Tenaga Kerja", priceFrom: 16_200_000, desc: "KITAS untuk tenaga kerja asing dengan indeks kerja." },
       { code: "I.4", name: "KITAP", priceFrom: 23_400_000, desc: "Kartu Izin Tinggal Tetap." },
       { code: "I.5", name: "Paspor RI (elektronik)", priceFrom: 1_800_000, desc: "Paspor Indonesia dengan chip." },
+      { code: "I.6", name: "BPJS Ketenagakerjaan & Kesehatan", priceFrom: 900_000, desc: "Registrasi & daftar ulang kewajiban ketenagakerjaan untuk seluruh karyawan." },
     ],
     faq: [
       {
@@ -1118,6 +1133,7 @@ export const CATEGORIES: CatalogCategory[] = [
       { code: "W.1", name: "Izin Prinsip Radio", priceFrom: 10_000_000, priceTo: 30_000_000, desc: "Stasiun radio swasta + hak frekuensi." },
       { code: "W.2", name: "Izin Televisi", priceFrom: 20_000_000, priceTo: 50_000_000, desc: "Stasiun televisi swasta." },
       { code: "W.3", name: "Izin Penyiaran Streaming", priceFrom: 5_000_000, priceTo: 15_000_000, desc: "Media online & streaming konten." },
+      { code: "W.4", name: "Izin Terbit Reklame", priceFrom: 2_500_000, priceTo: 12_000_000, desc: "Pemasangan billboard/videotron/spanduk sesuai perda daerah setempat." },
     ],
     faq: [
       {
@@ -1379,6 +1395,7 @@ export const CATEGORIES: CatalogCategory[] = [
       { code: "AE.1", name: "Penyusunan SPT Tahunan", priceFrom: 2_000_000, priceTo: 8_000_000, desc: "SPT Badan/Pribadi + audit keuangan." },
       { code: "AE.2", name: "Laporan Keuangan Audit", priceFrom: 5_000_000, priceTo: 30_000_000, desc: "Opini auditor & laporan keuangan tahunan." },
       { code: "AE.3", name: "Konsultasi Pajak & Insentif", priceFrom: 3_000_000, priceTo: 20_000_000, desc: "Tax holiday, PPnBM, super deduction, dll." },
+      { code: "AE.4", name: "LKPM (Laporan Penanaman Modal)", priceFrom: 750_000, desc: "Kewajiban laporan berkala triwulan/semester via OSS — hindari sanksi & pembekuan NIB." },
     ],
     faq: [
       {

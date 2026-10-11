@@ -1,6 +1,6 @@
 # ============================================================
 # PUSATPERIZINAN.COM — robots.txt
-# Selamat datang, robot mesin pencari! 🤖💚
+# Selamat datang, robot mesin pencari & AI! 🤖💚
 # ============================================================
 
 User-agent: Googlebot
@@ -31,9 +31,38 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
+# ── AI Search / Generative Engine Optimization (GEO) ──
+# Sengaja DIBUKA agar jawaban ChatGPT, Perplexity, Gemini, Claude
+# dapat mengutip layanan & panduan perizinan kami dengan sumber.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 User-agent: *
 # Endpoint API tidak punya nilai indeks — hemat crawl budget
 Disallow: /api/
+# Dashboard internal bukan konten publik — jangan habiskan crawl budget
+Disallow: /admin
 Allow: /
 
 # Tidak ada halaman konten yang dilarang — seluruh konten panduan & layanan
@@ -41,6 +70,9 @@ Allow: /
 
 # Sitemap
 Sitemap: https://pusatperizinan.com/sitemap.xml
+
+# Ringkasan situs untuk asisten AI (ChatGPT, Perplexity, Claude)
+# Lihat: https://pusatperizinan.com/llms.txt
 
 # Host principal
 Host: https://pusatperizinan.com
