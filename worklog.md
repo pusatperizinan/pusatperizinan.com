@@ -698,3 +698,28 @@ Stage Summary:
 - Situs kini terbuka untuk AI Search (GEO) — jalur lalu lintas baru 2026+
 - RSS + llms.txt menambah jalur penemuan konten
 - Perubahan harus di-commit & push agar ter-deploy ke Hostinger via Actions
+
+---
+Task ID: 4 (terapkan-10-ide)
+Agent: Super Z (main)
+Task: Nyatakan + TERAPKAN 10 Ide Brilian 46-Council ke dalam kode
+
+Work Log:
+- Buat komponen reusable: src/components/lead-form.tsx (client form → /api/leads, source per halaman)
+- IDE 1 /kalender-kepatuhan: tool interaktif (kepatuhan-tool.tsx) hitung jadwal LKPM (BKPM 5/2024: mikro/kecil semesteran tgl 20; menengah/besar triwulanan tgl 10), SPT Tahunan (30 Apr badan / 31 Mar OP), JAMSOSTEK 2A bulanan + FAQPage JSON-LD + form pengingat WA
+- IDE 2: src/app/llms-full.txt/route.ts (force-static) — katalog 370 baris mesin-baca dari SERVICES+TAX+PMI+CATEGORIES+BUNDLES+guides+blog (fix import 2x: TAX_ALL dari tax-services, PMI dari pmi-services)
+- IDE 3 /paket-usaha: 6 vertikal Izin-in-a-Box (kopi/cloud kitchen/klinik/umroh/laundry/EO) harga jujur dari katalog + ItemList JSON-LD
+- IDE 4 /pma-company-registration: landing EN untuk investor asing (3 paket USD 800/2.900/4.500, FAQ kepemilikan asing 100%, BKPM 3/2021, og locale en_US)
+- IDE 5 /mitra: program kemitraan daerah (benefit, 3 langkah, kuota 2/kota, form source=mitra)
+- IDE 9 /solusi-korporat: B2B bank/leasing (bulk legal check, remediasi, white-label, due diligence)
+- IDE 10 /bumdes: program desa (3 paket, FAQ badan hukum Kemenkop, harga sosial, dana desa)
+- IDE 7: docs/SCRIPT-60-DETIK.md — 10 naskah video 60 detik siap rekam + checklist rilis
+- IDE 6 & 8: TIDAK dipalsukan — butuh data pipeline nyata (Indeks Izin Tertib) & desain keamanan (portal klien); dinyatakan sebagai roadmap di jawaban user
+- Sitemap: tambah 6 URL program → total 9.700 URL; footer: internal link baru (paket-usaha, kalender-kepatuhan, mitra, korporat, bumdes, PMA EN)
+- Insiden: dev server OOM lagi saat uji sitemap beruntun (dev-mode sandbox RAM 4GB); restart; sitemap 200 OK (1,79MB, 9.700 URL)
+- Verifikasi: 10 route 200 OK; lint bersih
+
+Stage Summary:
+- 7 ide TERAPKAN penuh di kode (1,2,3,4,5,7,9,10), 2 ide dinyatakan roadmap dengan alasan integritas (6: data PR, 8: portal klien)
+- +6 halaman program dengan form lead per sumber → pipeline admin bisa bedakan asal lead
+- Semua harus di-push untuk deploy ke Hostinger

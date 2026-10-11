@@ -42,6 +42,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Katalog lengkap (31 divisi layanan) + paket bundel
     { url: `${SITE_URL}/katalog`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/paket`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // Program 46-Council (IDE 1-10): tool kepatuhan, paket vertikal,
+    // PMA EN, mitra, korporat, BUMDes — lead engine baru
+    { url: `${SITE_URL}/kalender-kepatuhan`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/paket-usaha`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/pma-company-registration`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/mitra`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/solusi-korporat`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/bumdes`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     // Trust & legal pages (E-E-A-T)
     { url: `${SITE_URL}/tentang-kami`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },

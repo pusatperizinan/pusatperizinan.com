@@ -64,6 +64,10 @@ const COMPANY_LINKS = [
   { label: "Kalkulator Biaya", href: "#kalkulator" },
   { label: "Jangkauan Nasional", href: "#jangkauan" },
   { label: "Harga", href: "#harga" },
+  { label: "Mitra Daerah", href: "/mitra" },
+  { label: "Solusi Korporat (B2B)", href: "/solusi-korporat" },
+  { label: "Layanan BUMDes", href: "/bumdes" },
+  { label: "PMA Investor (English)", href: "/pma-company-registration" },
   { label: "Testimoni", href: "#testimoni" },
   { label: "FAQ", href: "#faq" },
   { label: "Cek Izin AI", href: "#cek-izin" },
@@ -146,6 +150,16 @@ export function Footer() {
               <li>
                 <a href="/katalog" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   🗂️ Katalog Lengkap 140+ Layanan (31 Divisi)
+                </a>
+              </li>
+              <li>
+                <a href="/paket-usaha" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  📦 Paket Usaha per Industri (Kopi, Klinik, Umroh…)
+                </a>
+              </li>
+              <li>
+                <a href="/kalender-kepatuhan" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  📅 Kalender Kepatuhan (LKPM, SPT, JAMSOSTEK)
                 </a>
               </li>
               <li>
